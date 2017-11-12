@@ -1,5 +1,13 @@
 #! /bin/sh
 
+#check internet connection
+wget -q --spider http://google.com
+
+if ! [ $? -eq 0 ]; then
+ echo "No internet connection, exiting.."
+ exit
+fi
+
 WAN_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 if [ ! -f ip.txt ]; then
@@ -15,5 +23,5 @@ if [ "$IP" != "$WAN_IP"  ]; then
  az network nsg rule update --resource-group MyResourceGroupName --nsg-name MyNetworkSecurityGroupName -n MyRuleName --source-address-prefix "$WAN_IP"
  echo "$WAN_IP" > ip.txt
 else
- echo "$(date) - IP unchanged" > azure_ip_updater.log
+ echo "$(date) - IP unchanged"
 fi
