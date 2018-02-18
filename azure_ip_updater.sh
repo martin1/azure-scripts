@@ -18,9 +18,9 @@ fi
 
 if [ "$IP" != "$WAN_IP"  ]; then
  #log in
- az login -u MyAzureUserName -p MyAzurePassword
+ /usr/local/bin/az login -u MyAzureUserName -p MyAzurePassword
  #update security rules
- az network nsg rule update --resource-group MyResourceGroupName --nsg-name MyNetworkSecurityGroupName -n MyRuleName --source-address-prefix "$WAN_IP"
+ /usr/local/bin/az network nsg rule update --resource-group MyResourceGroupName --nsg-name MyNetworkSecurityGroupName -n MyRuleName --source-address-prefix "$WAN_IP"
  echo "$WAN_IP" > ip.txt
 else
  echo "$(date) - IP unchanged"
